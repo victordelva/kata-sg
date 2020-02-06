@@ -2,9 +2,12 @@
 
 ## How to run app
 
-1. `cd api && composer install`
-2. `docker-compose up -d --build`
-3. `docker-compose exec api php artisan migrate`
+1. `cd api && composer install && cd ..`
+2. `cd app && npm install && cd ..`
+3. `docker-compose up -d --build`
+4. `docker-compose exec api php artisan migrate`
+
+_note: you can skip step 1 and 2, since it's done from docker, but it'll be faster._
 
 ## TEST
 
