@@ -12,7 +12,9 @@ services:
     command: "php artisan serve --host=0.0.0.0 --port=8000"
     environment:
       SERVICE_NAME: api
+      CORS_MAX_AGE: 500
       SERVICE_TAGS: dev
+      docker: "true"
     working_dir: /var/www
     ports:
       - "8000:8000"
@@ -21,6 +23,28 @@ services:
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - kata-network
+
+  # Front app
+  app:
+    container_name: app
+    hostname: app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/usr/src/app/
+      - /usr/src/app/node_modules
+      - /usr/src/app/public
+    ports:
+      - '3000:3000'
+      - '3003:3003'
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - kata-network
+
 
   #MySQL Service
   db:

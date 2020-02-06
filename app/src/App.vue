@@ -3,12 +3,16 @@
     <contract-component
             :id="1"
             :contract="contract1"
+            :key="lastTrail+'1'"
     />
-    <btn>Trail Time!</btn>
+    <btn @click="trial">Trail Time!</btn>
     <contract-component
             :id="2"
             :contract="contract2"
+            :key="lastTrail+'2'"
     />
+
+    <history/>
   </div>
 </template>
 
@@ -16,10 +20,12 @@
 import ContractComponent from './components/Contract'
 import Btn from "./components/Btn";
 import Contract from "./Domain/Contract";
-
+import { mapActions } from 'vuex';
+import History from "./components/History";
 export default {
   name: 'app',
   components: {
+    History,
     "contract-component": ContractComponent,
     Btn,
   },
@@ -27,8 +33,22 @@ export default {
     return {
       contract1: new Contract(),
       contract2: new Contract(),
+      lastTrail: 0,
     }
   },
+  methods: {
+    ...mapActions('trials', [
+      'trialAction',
+    ]),
+    trial: function () {
+      let self = this;
+      this.trialAction({
+        contract1: this.contract1,
+        contract2: this.contract2,
+      });
+      self.lastTrail += 1;
+    }
+  }
 }
 </script>
 

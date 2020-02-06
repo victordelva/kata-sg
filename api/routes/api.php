@@ -13,5 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/contracts/{contract1}/{contract2}/trial', 'Lawsuits\ContractController@trialAction');
+Route::post('/trials/{contract1}/{contract2}', 'Lawsuits\ContractController@trialAction');
 

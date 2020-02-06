@@ -14,7 +14,7 @@ class ContractsTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/api/contracts/KN/NNV/trial');
+        $response = $this->post('/api/trials/KN/NNV');
 
         $response->assertStatus(200);
     }

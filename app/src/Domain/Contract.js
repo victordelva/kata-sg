@@ -19,6 +19,10 @@ export default class Contract {
         this.#roles = Array.from(roles);
     }
 
+    get rolesString () {
+        return this.#roles.join('');
+    }
+
     get points () {
         let points = 0;
         let self = this;
