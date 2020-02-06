@@ -2,8 +2,9 @@
 
 ## How to run app
 
-1. `docker-compose up -d --build`
-2. `docker-compose exec api php artisan migrate`
+1. `cd api && composer install`
+2. `docker-compose up -d --build`
+3. `docker-compose exec api php artisan migrate`
 
 ## TEST
 
