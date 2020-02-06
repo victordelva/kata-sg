@@ -2,10 +2,10 @@
 
 namespace App\Exceptions\Lawsuits;
 
-use Exception;
+use App\Exceptions\AppException;
 use Throwable;
 
-class ContractException extends Exception
+class ContractException extends AppException
 {
     public function __construct($message = "", $code = 0, Throwable $previous = null)
     {

@@ -6,27 +6,60 @@ use App\Exceptions\Lawsuits\ContractException;
 
 class Contract
 {
-    const ALLOWED_ROLES = ["K", "N", "V"];
+    // improvement: include roles in database to allow adding new roles
+    const ROLE_POINTS = [
+        "K" => 5, "N" => 2, "V" => 1,
+    ];
+
+    /**
+     * value => invalidator
+     * key => invalidated
+     */
+    const INVALIDATORS = [
+        "V" => "K",
+    ];
 
     /**
      * @var array
      */
     private $roles;
 
+    /**
+     * @var integer
+     */
+    private $points;
+
     public function __construct(string $roles)
     {
-        $this->setRoles($roles);
-    }
-
-    private function setRoles(string $roles)
-    {
         $roles = str_split($roles);
-        array_map(function ($role) {
-            if (!in_array($role, self::ALLOWED_ROLES)) {
+
+        $this->points = 0;
+
+        $this->roles = array_map(function ($role) use ($roles) {
+            $role = strtoupper($role);
+
+            if (!in_array($role, $this->getAllowedRoles())) {
                 throw new ContractException("INVALID_ROLE", 400);
             }
+
+            $this->points += $this->getSingleRolePoints($role, $roles);
+
+            return $role;
         }, $roles);
-        $this->roles = $roles;
+    }
+
+    private function getAllowedRoles()
+    {
+        return array_keys(self::ROLE_POINTS);
+    }
+
+    private function getSingleRolePoints(string $role, array $roles)
+    {
+        if (isset(self::INVALIDATORS[$role])
+            && in_array(strtoupper(self::INVALIDATORS[$role]), array_map('strtoupper', $roles))) {
+            return 0;
+        }
+        return self::ROLE_POINTS[$role];
     }
 
     public function getRoles(): array
@@ -34,8 +67,16 @@ class Contract
         return $this->roles;
     }
 
-    public function getPoints(): array
+    public function getPoints(): int
     {
-        return $this->roles;
+        return $this->points;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            "contract" => implode("", $this->roles),
+            "points" => $this->getPoints(),
+        ];
     }
 }
