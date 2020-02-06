@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Domain\Lawsuits;
+namespace App\Domain\Lawsuits;
+
+use App\Exceptions\Lawsuits\ContractException;
 
 class Contract
 {
+    const ALLOWED_ROLES = ["K", "N", "V"];
+
     /**
      * @var array
      */
@@ -16,10 +20,21 @@ class Contract
 
     private function setRoles(string $roles)
     {
-        $this->roles = str_split($roles);
+        $roles = str_split($roles);
+        array_map(function ($role) {
+            if (!in_array($role, self::ALLOWED_ROLES)) {
+                throw new ContractException("INVALID_ROLE", 400);
+            }
+        }, $roles);
+        $this->roles = $roles;
     }
 
     public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    public function getPoints(): array
     {
         return $this->roles;
     }
