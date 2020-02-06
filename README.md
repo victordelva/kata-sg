@@ -1,5 +1,10 @@
 # Victor del Valle
 
+## How to run app
+
+1. `docker-compose up -d --build`
+2. `docker-compose exec api php artisan migrate`
+
 ## TEST
 
 Execute api tests
@@ -9,8 +14,13 @@ Execute api tests
 ## API - First Phase
 
 Endpoint that returns the winner of two contracts:
-- GET base_url/api/contracts/{contract1}/{contract2}/trial
+- POST base_url/api/trials/{contract1}/{contract2}
 
 Example: 
-- GET http://0.0.0.0:8000/api/contracts/KN/NNV/trial
+- POST http://0.0.0.0:8000/api/trials/KN/NNV
 
+Trials and contracts are saved in database.
+
+## FRONT App - Second stage
+
+Enter: http://localhost:3000/

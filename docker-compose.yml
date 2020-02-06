@@ -34,7 +34,6 @@ services:
     volumes:
       - ./app:/usr/src/app/
       - /usr/src/app/node_modules
-      - /usr/src/app/public
     ports:
       - '3000:3000'
       - '3003:3003'

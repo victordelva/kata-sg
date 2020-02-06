@@ -19,6 +19,7 @@ RUN npm install -g @vue/cli-service-global
 # COPY . .
 COPY . /usr/src/app/
 
+RUN npm install
 RUN npm run build
 
 # start app
