@@ -4,9 +4,17 @@ namespace App\Services\Lawsuits;
 
 use App\Domain\Lawsuits\Contract;
 use App\Domain\Lawsuits\Trial;
+use App\Persistance\Repositories\Lawsuits\TrailRepositoryInterface;
 
-class TailsService
+class TrialsService
 {
+    private $trialRepository;
+
+    public function __construct(TrailRepositoryInterface $trailRepository)
+    {
+        $this->trialRepository = $trailRepository;
+    }
+
     /**
      * @param $contract1
      * @param $contract2
@@ -17,6 +25,8 @@ class TailsService
         $contract2 = new Contract($contract2);
 
         $trial = new Trial($contract1, $contract2);
+
+        $this->trialRepository->save($trial);
 
         return $trial->toArray();
     }

@@ -67,6 +67,11 @@ class Contract
         return $this->roles;
     }
 
+    public function getRolesString(): string
+    {
+        return implode("", $this->roles);
+    }
+
     public function getPoints(): int
     {
         return $this->points;
