@@ -1,11 +1,16 @@
 # Victor del Valle
 
-## API
+## TEST
 
-### First Phase
+Execute api tests
+
+- `docker-compose exec api ./vendor/bin/phpunit`
+
+## API - First Phase
 
 Endpoint that returns the winner of two contracts:
 - GET base_url/api/contracts/{contract1}/{contract2}/trial
 
 Example: 
 - GET http://0.0.0.0:8000/api/contracts/KN/NNV/trial
+
