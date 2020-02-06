@@ -17,5 +17,13 @@ class ContractsTest extends TestCase
         $response = $this->post('/api/trials/KN/NNV');
 
         $response->assertStatus(200);
+        $response->assertJsonStructure([
+            "statusCode",
+            "data" => [
+                "status",
+                "winner_id",
+                "participants"
+            ]
+        ]);
     }
 }

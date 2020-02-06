@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Lawsuits;
 
 use App\Exceptions\AppException;
 use App\Http\Controllers\Controller;
-use App\Services\Lawsuits\ContractsService;
+use App\Services\Lawsuits\TailsService;
 
 class ContractController extends Controller
 {
     private $contractService;
 
-    public function __construct(ContractsService $contractsService)
+    public function __construct(TailsService $contractsService)
     {
         $this->contractsService = $contractsService;
     }
